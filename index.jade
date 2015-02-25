@@ -1,0 +1,20 @@
+
+html
+
+    head
+        link( rel="stylesheet", href="vendor/foundation/css/normalize.css" )
+        link( rel="stylesheet", href="vendor/foundation/css/foundation.css" )    
+        link( rel="stylesheet", href="app/style.css" )    
+    body( ng-app="app" )
+    
+        div
+            div(ng-controller="testCtrl").row
+                h1 Job Openings 
+                div(ng-repeat="job in jobs").ng-cloak.six.columns
+                    div.panel
+                        a(hreaf="#")
+                            h2 {{job.title}}
+                            p {{job.description}}
+        
+        script( type="text/javascript", src="vendor/angular/angular.js" )
+        script( type="text/javascript", src="app/app.js" )

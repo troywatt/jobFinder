@@ -15,6 +15,7 @@
   "dependencies": {
     "jquery": "~2.1.3",
     "angular": "~1.3.13",
-    "foundation": "~5.5.1"
+    "foundation": "~5.5.1",
+    "angular-resource": "~1.3.14"
   }
 }

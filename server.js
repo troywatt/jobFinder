@@ -1,6 +1,5 @@
 var express = require( 'express' );
-var mongoose = require("mongoose");
-var job = require( './models/Jobs' );
+var jobsData = require( './jobs-data' );
 
 var app = express();
 
@@ -12,11 +11,11 @@ app.use( express.static( __dirname + '/public' ) );
 
 app.get( '/api/jobs', function( req, res ){
     
-    mongoose.model( 'Job' ).find({}).exec(function( error, collection  ){
+    jobsData.findJobs( {} ).then(function( collection ){
         res.send( collection );
     });   
     
-})
+});
 
 // Catch all
 // angular is handling our routes for this example app to keep it simple
@@ -25,13 +24,11 @@ app.get( '*', function( req, res ){
 } );
 
 // mongoose.connect('mongodb://localhost/jobfinder');
-mongoose.connect('mongodb://root:password@ds049161.mongolab.com:49161/jobfinder');
+jobsData.connectDB('mongodb://root:password@ds049161.mongolab.com:49161/jobfinder')
+    .then(function(){
+        console.log('mongoose connected successfully');
+        jobsData.seedJobs();    
+    });
 
-var conn = mongoose.connection;
-
-conn.once( 'open', function(){
-    console.log('mongoose connected successfully');
-    job.seedJobs();
-})
 
 app.listen( process.env.PORT, process.env.IP );
